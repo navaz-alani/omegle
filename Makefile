@@ -6,7 +6,7 @@ PROTO_DEF=./pb/omegle.proto
 PROTO_TS_OUT=./web/pb
 PROTO_GO_OUT=./pb/go
 
-.PHONY: exec grpc-go grpc-ts clean clean-grpc
+.PHONY: exec grpc-go grpc-ts clean clean-grpc tidy
 
 exec: $(BIN)
 	./$(BIN)
@@ -31,3 +31,6 @@ clean:
 
 clean-grpc:
 	rm -rf $(PROTO_TS_OUT) $(PROTO_GO_OUT)
+
+tidy:
+	go mod tidy
