@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+option go_package = "github.com/navaz-alani/omegle/pb";
+
+package pb;
+
+service Omegle {
+  rpc Join(JoinReq) returns (stream Payload) {}
+  rpc Chat(ChatReq) returns (ChatResp) {}
+  rpc Send(Payload) returns (SendReceipt) {}
+  rpc GetCommunityStats(StatsReq) returns (CommunityStats) {}
+}
+
+message ChatReq {
+  string requestor = 1;
+  string requested = 2;
+}
+
+message ChatResp {
+  enum Status {
+    OK = 0;
+    UNAVAILABLE = 1;
+  }
+  Status status = 1;
+  string msg = 2;
+}
+
+message StatsReq {}
+
+message CommunityStats {
+  int32 online = 1;
+  int32 engaged = 2;
+}
+
+// JoinReq is a message conveying a request to join the Omegle chat service as a
+// user.
+message JoinReq {
+  string username = 1;        // requested username for session
+  repeated string topics = 2;
+}
+
+// User conveys an allocation on the Omegle service as a chat participant.
+message User {
+  string username = 1;
+}
+
+// Payload message conveys a payload from one user to another. Note that media
+// payloads do not contain binary data but rather URLs to the media resources.
+message Payload {
+  enum Kind {
+    TEXT = 0;
+    IMAGE = 1;
+    VIDEO = 2;
+    CONTROL = 3;
+  }
+  Kind kind = 1;
+  string from = 2;
+  string to = 3;
+  string data = 4;
+}
+
+message SendReceipt {
+  enum Status {
+    OK = 0;
+    ERROR = 1;
+  }
+  Status status = 1;
+  string msg = 2;
+}

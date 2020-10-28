@@ -1,0 +1,43 @@
+version: "2.4"
+services:
+  grpc_server:
+    container_name: grpc_server
+    image: golang:latest
+    restart: always
+    volumes:
+      - .:/go/src/omegle
+    command: make --directory=src/omegle
+    networks:
+      grpc:
+        ipv4_address: "172.16.238.10"
+
+  grpc_proxy:
+    container_name: grpc_proxy
+    build:
+      context: ./
+      dockerfile: ./web/envoy/Dockerfile
+    ports:
+      - "4001:10010"
+    networks:
+      grpc:
+
+  frontend:
+    container_name: frontend
+    image: node:latest
+    restart: always
+    volumes:
+      - ./web:/frontend
+    ports:
+      - "4000:3000"
+    links:
+      - envoy
+    command: ./frontend/deploy.sh
+
+networks:
+  grpc:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1
