@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option go_package = "github.com/navaz-alani/omegle/pb/chat";
+
+package chat;
+
+service Chat {
+  rpc Join(JoinReq) returns (Receipt) {}
+  rpc Send(Payload) returns (Receipt) {}
+  rpc Poll(PollReq) returns (PollUpdate) {}
+}
+
+message JoinReq {}
+
+message Payload {
+  string src = 1;
+  string dst = 2;
+  string data = 3;
+
+  enum Kind {
+    CONTROL = 0;
+    TEXT = 1;
+    IMAGE = 2;
+  }
+  Kind kind = 4;
+}
+
+message Receipt {
+  enum Status {
+    OK = 0;
+    ERROR = 1;
+    WAITING = 2;
+    REJECTED = 3;
+  }
+  Status status = 1;
+  string msg = 2;
+}
+
+message PollReq {}
+
+message PollUpdate {
+  repeated Payload incoming = 1;
+  int32 online = 3;
+  int32 unmatched = 4;
+}

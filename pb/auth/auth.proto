@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option go_package = "github.com/navaz-alani/omegle/pb/auth";
+
+import "google/protobuf/timestamp.proto";
+
+package auth;
+
+service Auth {
+  rpc GetCert(Request) returns (Cert) {}
+  rpc VerifCert(Cert) returns (CertStatus) {}
+  rpc RenewCert(Cert) returns (Cert) {}
+}
+
+message Request {
+  string requestedUsername = 1;
+}
+
+message Cert {
+  string jwt = 1;
+  string username = 2;
+  google.protobuf.Timestamp expiration = 3;
+}
+
+message CertStatus {
+  enum Status {
+    VALID = 0;
+    EXPIRED = 1;
+  }
+  Status status = 1;
+}
