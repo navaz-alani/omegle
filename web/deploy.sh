@@ -1,5 +1,10 @@
 #!/bin/bash
 cd frontend
 yarn
-yarn build
-yarn start
+
+if [ "$1" == "--dev" ]; then
+  yarn dev
+else
+  yarn build;
+  yarn start;
+fi

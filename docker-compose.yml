@@ -21,6 +21,18 @@ services:
     networks:
       grpc:
 
+  frontend_dev:
+    container_name: frontend_dev
+    image: node:12.18.4
+    restart: always
+    volumes:
+      - ./web:/frontend
+    ports:
+      - "4000:3000"
+    links:
+      - grpc_proxy
+    command: ./frontend/deploy.sh --dev
+
   frontend:
     container_name: frontend
     image: node:latest
@@ -30,7 +42,7 @@ services:
     ports:
       - "4000:3000"
     links:
-      - envoy
+      - grpc_proxy
     command: ./frontend/deploy.sh
 
 networks:
