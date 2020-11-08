@@ -1,12 +1,21 @@
 version: "2.4"
 services:
-  grpc_server:
-    container_name: grpc_server
+  chat_srvc_grpc:
+    container_name: chat_srvc_grpc
+    build:
+      context: ./
+      dockerfile: ./dockerfiles/chat_srvc_grpc/Dockerfile
+    networks:
+      grpc:
+        ipv4_address: "172.16.238.11"
+
+  auth_srvc_grpc:
+    container_name: auth_srvc_grpc
     image: golang:latest
     restart: always
     volumes:
-      - .:/go/src/omegle
-    command: make --directory=src/omegle
+      - .:/go/src/auth_srvc_grpc
+    command: make --directory=src/auth_srvc_grpc exec_auth_srvc
     networks:
       grpc:
         ipv4_address: "172.16.238.10"
@@ -15,7 +24,7 @@ services:
     container_name: grpc_proxy
     build:
       context: ./
-      dockerfile: ./web/envoy/Dockerfile
+      dockerfile: ./dockerfiles/grpc_proxy/Dockerfile
     ports:
       - "4001:10010"
     networks:
