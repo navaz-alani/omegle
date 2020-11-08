@@ -7,9 +7,8 @@ import (
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/golang/protobuf/ptypes"
-	"github.com/golang/protobuf/ptypes/empty"
 
-	"github.com/navaz-alani/omegle/pb/go/pb/auth"
+	"github.com/navaz-alani/omegle/pb/auth"
 )
 
 type AuthService struct {
@@ -68,8 +67,6 @@ func (a *AuthService) GetCert(ctx context.Context, req *auth.Request) (*auth.Cer
 			Expiration: tsProto,
 		}, nil
 	}
-
-	return nil, nil
 }
 
 func (a *AuthService) jwtDecode(jwtToken string) (*jwt.Token, *JwtClaims, error) {
@@ -89,14 +86,16 @@ func (a *AuthService) jwtDecode(jwtToken string) (*jwt.Token, *JwtClaims, error)
 	}
 }
 
-func (a *AuthService) VerifCert(ctx context.Context, c *auth.Cert) (*empty.Empty, error) {
+func (a *AuthService) VerifCert(ctx context.Context, c *auth.Cert) (*auth.CertStatus, error) {
 	if _, claims, err := a.jwtDecode(c.GetJwt()); err != nil {
 		return nil, err
 	} else {
 		if claims.Username == c.Username {
 			return nil, fmt.Errorf("[auth] token validation fail")
 		}
-		return nil, nil
+    var ret auth.CertStatus
+    ret.Status= auth.CertStatus_VALID
+		return &ret, nil
 	}
 }
 

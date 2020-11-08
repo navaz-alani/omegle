@@ -2,19 +2,19 @@
 
 #include <iostream>
 
-#include <grpcpp/server.h>
-#include <grpcpp/server_builder.h>
-#include <grpcpp/server_context.h>
-#include <grpcpp/security/server_credentials.h>
-#include <grpcpp/security/credentials.h>
-#include <grpcpp/channel.h>
-#include <grpcpp/create_channel.h>
+#include <grpc++/server.h>
+#include <grpc++/server_builder.h>
+#include <grpc++/server_context.h>
+#include <grpc++/security/server_credentials.h>
+#include <grpc++/security/credentials.h>
+#include <grpc++/channel.h>
+#include <grpc++/create_channel.h>
 
 int main(void) {
   // instantiate chatService with a channel to authentication service
-  ChatService *service = new ChatService(grpc::CreateChannel("0.0.0.0:4002",
+  ChatService *service = new ChatService(grpc::CreateChannel("0.0.0.0:10000",
                                          grpc::InsecureChannelCredentials()));
-  std::string serviceAddr = "0.0.0.0:4001";
+  std::string serviceAddr = "0.0.0.0:10001";
 
   grpc::ServerBuilder builder;
   builder.AddListeningPort(serviceAddr, grpc::InsecureServerCredentials());

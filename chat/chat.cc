@@ -2,7 +2,7 @@
 
 #include <map>
 
-#include <grpcpp/client_context.h>
+#include <grpc++/client_context.h>
 
 using grpc::Status;
 using grpc::StatusCode;

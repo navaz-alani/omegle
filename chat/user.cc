@@ -18,7 +18,7 @@ void User::poll(chat::PollUpdate *p) {
   chat::Payload *newPayload;
   while (!incoming_.empty()) {
     newPayload = p->add_incoming();
-    newPayload = incoming_.front();
+    *newPayload = *incoming_.front();
     incoming_.pop();
   }
   mu_.unlock();

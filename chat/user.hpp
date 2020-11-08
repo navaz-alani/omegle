@@ -15,7 +15,7 @@ class User {
   public:
     User(const std::string &username);
     ~User() = default;
-    std::string username() const;
+    const std::string username() const;
 
     // Users receive payloads, which are queued.
     void receive(chat::Payload* p);

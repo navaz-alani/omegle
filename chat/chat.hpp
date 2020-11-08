@@ -6,9 +6,9 @@
 #include <map>
 #include <mutex>
 
-#include <grpc/grpc.h>
-#include <grpcpp/server.h>
-#include <grpcpp/server_context.h>
+#include <grpc++/grpc++.h>
+#include <grpc++/server.h>
+#include <grpc++/server_context.h>
 
 #include "pb/chat/chat.grpc.pb.h"
 #include "pb/auth/auth.grpc.pb.h"

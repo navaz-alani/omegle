@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/navaz-alani/omegle/auth"
-	authpb "github.com/navaz-alani/omegle/pb/go/pb/auth"
+	authpb "github.com/navaz-alani/omegle/pb/auth"
 	"google.golang.org/grpc"
 )
 
@@ -24,16 +24,19 @@ func main() {
   if *secret == "" {
 		log.Fatalf("Authentication secret not provided\n")
   }
-	listener, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%d", *port))
+  addr := fmt.Sprintf("0.0.0.0:%d", *port)
+	listener, err := net.Listen("tcp", addr)
 	if err != nil {
 		log.Fatalf("failed to listen: %v\n", err)
 	}
 	var opts []grpc.ServerOption
 	grpcServer := grpc.NewServer(opts...)
-	srv, err := auth.NewAuthService(*secret)
+  var srv authpb.AuthServer
+	srv, err = auth.NewAuthService(*secret)
 	if err != nil {
 		log.Fatalf("failed to instantiate auth service: %v\n", err)
 	}
 	authpb.RegisterAuthServer(grpcServer, srv)
+  log.Printf("Listening on %s", addr)
 	grpcServer.Serve(listener)
 }
