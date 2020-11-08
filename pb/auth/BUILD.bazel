@@ -1,0 +1,28 @@
+package(default_visibility = ["//visibility:public"])
+
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@com_github_grpc_grpc//bazel:cc_grpc_library.bzl", "cc_grpc_library")
+load("@rules_cc//cc:defs.bzl", "cc_proto_library")
+
+proto_library(
+    name = "auth_proto",
+    srcs = ["auth.proto"],
+    deps = ["@com_google_protobuf//:timestamp_proto"],
+)
+
+###########################################
+# C++ code generation                     #
+###########################################
+
+cc_proto_library(
+    name = "auth_cc_proto",
+    deps = [":auth_proto"],
+)
+
+cc_grpc_library(
+    name = "auth_cc_grpc",
+    srcs = [":auth_proto"],
+    grpc_only = True,
+    deps = [":auth_cc_proto"],
+)
+

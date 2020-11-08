@@ -1,0 +1,24 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+# C++ gRPC chat service implementation
+CHAT_SRVC_DEPS = [
+    "//pb/auth:auth_cc_grpc",
+    "//pb/chat:chat_cc_grpc",
+    "@com_github_grpc_grpc//:grpc++",
+    "@com_github_grpc_grpc//:grpc",
+]
+
+cc_library(
+    name = "chat_srvc_impl",
+    srcs = glob(["*.cc"]),
+    hdrs = glob(["*.h"]) + glob(["*.hpp"]),
+    defines = ["__BAZEL_BUILD__"],
+    deps = CHAT_SRVC_DEPS,
+)
+
+cc_binary(
+    name = "chat_srvc_grpc",
+    srcs = ["chat_srvc.cc"],
+    defines = ["__BAZEL_BUILD__"],
+    deps = [":chat_srvc_impl"],
+)
