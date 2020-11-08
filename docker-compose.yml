@@ -1,14 +1,5 @@
 version: "2.4"
 services:
-  chat_srvc_grpc:
-    container_name: chat_srvc_grpc
-    build:
-      context: ./
-      dockerfile: ./dockerfiles/chat_srvc_grpc/Dockerfile
-    networks:
-      grpc:
-        ipv4_address: "172.16.238.11"
-
   auth_srvc_grpc:
     container_name: auth_srvc_grpc
     image: golang:latest
@@ -16,9 +7,22 @@ services:
     volumes:
       - .:/go/src/auth_srvc_grpc
     command: make --directory=src/auth_srvc_grpc exec_auth_srvc
+    ports:
+      - "4002:10000"
     networks:
       grpc:
         ipv4_address: "172.16.238.10"
+
+  chat_srvc_grpc:
+    container_name: chat_srvc_grpc
+    build:
+      context: ./
+      dockerfile: ./dockerfiles/chat_srvc_grpc/Dockerfile
+    ports:
+      - "4003:10001"
+    networks:
+      grpc:
+        ipv4_address: "172.16.238.11"
 
   grpc_proxy:
     container_name: grpc_proxy
