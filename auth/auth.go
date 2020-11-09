@@ -8,7 +8,7 @@ import (
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/golang/protobuf/ptypes"
 
-	"github.com/navaz-alani/omegle/pb/auth"
+	"github.com/navaz-alani/oryx/pb/go/pb/auth"
 )
 
 type AuthService struct {
@@ -117,5 +117,4 @@ func (a *AuthService) RenewCert(ctx context.Context, c *auth.Cert) (*auth.Cert, 
 			}, nil
 		}
 	}
-	return nil, nil
 }

@@ -8,8 +8,8 @@ import (
 	"net"
 	"time"
 
-	"github.com/navaz-alani/omegle/auth"
-	authpb "github.com/navaz-alani/omegle/pb/auth"
+	"github.com/navaz-alani/oryx/auth"
+	authpb "github.com/navaz-alani/oryx/pb/go/pb/auth"
 	"google.golang.org/grpc"
 )
 

@@ -118,8 +118,8 @@ const char descriptor_table_protodef_pb_2fauth_2fauth_2eproto[] PROTOBUF_SECTION
   "th\022&\n\007GetCert\022\r.auth.Request\032\n.auth.Cert"
   "\"\000\022+\n\tVerifCert\022\n.auth.Cert\032\020.auth.CertS"
   "tatus\"\000\022%\n\tRenewCert\022\n.auth.Cert\032\n.auth."
-  "Cert\"\000B\'Z%github.com/navaz-alani/omegle/"
-  "pb/authb\006proto3"
+  "Cert\"\000B%Z#github.com/navaz-alani/oryx/pb"
+  "/authb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_pb_2fauth_2fauth_2eproto_deps[1] = {
   &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
@@ -131,7 +131,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_pb_
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_pb_2fauth_2fauth_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_pb_2fauth_2fauth_2eproto = {
-  false, false, descriptor_table_protodef_pb_2fauth_2fauth_2eproto, "pb/auth/auth.proto", 455,
+  false, false, descriptor_table_protodef_pb_2fauth_2fauth_2eproto, "pb/auth/auth.proto", 453,
   &descriptor_table_pb_2fauth_2fauth_2eproto_once, descriptor_table_pb_2fauth_2fauth_2eproto_sccs, descriptor_table_pb_2fauth_2fauth_2eproto_deps, 3, 1,
   schemas, file_default_instances, TableStruct_pb_2fauth_2fauth_2eproto::offsets,
   file_level_metadata_pb_2fauth_2fauth_2eproto, 3, file_level_enum_descriptors_pb_2fauth_2fauth_2eproto, file_level_service_descriptors_pb_2fauth_2fauth_2eproto,

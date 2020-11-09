@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/navaz-alani/omegle/pb/auth";
+option go_package = "github.com/navaz-alani/oryx/pb/auth";
 
 import "google/protobuf/timestamp.proto";
 
