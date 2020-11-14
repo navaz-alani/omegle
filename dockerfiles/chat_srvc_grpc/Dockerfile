@@ -2,6 +2,7 @@ FROM debian:stretch
 
 ENV BAZEL_VERSION=3.7.0
 ENV SRVC_NAME=chat_srvc_grpc
+ENV SRVC_TARGET="//chat:chat_srvc_grpc"
 
 # install pre-requisites
 RUN apt update && apt install -y                \
@@ -23,4 +24,4 @@ RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > bazel
 
 # initialize grpc service
 COPY ./ /${SRVC_NAME}
-CMD cd /${SRVC_NAME} && bazel run ${SRVC_NAME}
+CMD cd /${SRVC_NAME} && bazel run ${SRVC_TARGET}

@@ -103,7 +103,7 @@ func (a *AuthService) RenewCert(ctx context.Context, c *auth.Cert) (*auth.Cert, 
 	if _, claims, err := a.jwtDecode(c.GetJwt()); err != nil {
 		return nil, err
 	} else if time.Unix(claims.ExpiresAt, 0).Sub(time.Now()) > 30*time.Second {
-		return c, fmt.Errorf("[auth] premature renew request")
+		return c, nil;
 	} else {
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 		if tokenString, err := token.SignedString(a.jwtSecret); err != nil {

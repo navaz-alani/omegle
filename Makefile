@@ -37,7 +37,7 @@ exec_chat_srvc: $(CHAT_SRVC)
 	./$(CHAT_SRVC)
 
 exec_auth_srvc: $(AUTH_SRVC)
-	./$(AUTH_SRVC)
+	./$(AUTH_SRVC) -secret=$(AUTH_SECRET) # AUTH_SECRET defined in env vars
 
 $(AUTH_SRVC): $(GXX_SRC)
 	$(GXX) get

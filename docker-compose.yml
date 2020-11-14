@@ -2,11 +2,16 @@ version: "2.4"
 services:
   auth_srvc_grpc:
     container_name: auth_srvc_grpc
-    image: golang:latest
-    restart: always
-    volumes:
-      - .:/go/src/auth_srvc_grpc
-    command: make --directory=src/auth_srvc_grpc exec_auth_srvc
+    #image: golang:latest
+    #restart: always
+    #volumes:
+    #  - .:/go/src/auth_srvc_grpc
+    #command: make --directory=src/auth_srvc_grpc exec_auth_srvc
+    build:
+      context: ./
+      args:
+        - AUTH_SECRET=${AUTH_SECRET}
+      dockerfile: ./dockerfiles/auth_srvc_grpc/Dockerfile
     ports:
       - "4002:10000"
     networks:
